@@ -40,8 +40,8 @@ public class Main {
             }
         }
 
-        Collections.sort(n1, (task1, task2) -> task1.getT1() - task2.getT1());
-        Collections.sort(n2, (task1, task2) -> task1.getT1() + task2.getT1());
+        n1.sort(Comparator.comparing(Task::getT1));
+        n2.sort(Comparator.comparing(Task::getT2).reversed());
 
         List<Task> toPrint = new ArrayList<>(n1);
         toPrint.addAll(n2);
@@ -50,21 +50,34 @@ public class Main {
     }
 
     private static void createSchedule(List<Task> toPrint) {
+        int spaces = 0;
+        int placeToStart = -1;
         String[] machines = new String[3];
         machines[0] = ("|M1|");
         machines[1] = ("|M2|");
         machines[2] = ("|M3|");
 
         for (Task t : toPrint) {
-            for (int i = 0; i < t.getM1(); ++i) {
+            System.out.println(t.toString());
+
+            for (int i = 0; i < t.getM1(); i++) {
                 machines[0] += t.id;
-                machines[1] += "-";
-                machines[2] += "-";
             }
+
+            placeToStart = machines[0].lastIndexOf(String.valueOf(t.id));
+
+            while (machines[1].length() < placeToStart)
+                machines[1] += "-";
 
             for (int i = 0; i < t.getM2(); ++i) {
                 machines[1] += t.id;
             }
+
+            placeToStart = machines[1].lastIndexOf(String.valueOf(t.id));
+
+            while (machines[2].length() < placeToStart)
+                machines[2] += "-";
+
             for (int i = 0; i < t.getM3(); ++i) {
                 machines[2] += t.id;
             }
@@ -139,5 +152,14 @@ public class Main {
         public void setT2(int t2) {
             this.t2 = t2;
         }
+    }
+
+    private boolean idSecondMachineDominated(List<int[]> machines) {
+        for (int i = 0; i < machines.get(0).length; ++i) {
+            if (machines.get(0)[i] < machines.get(1)[i] || machines.get(0)[i] < machines.get(2)[i]) {
+                throw new UnsupportedOperationException("Second machine is not dominated");
+            }
+        }
+        return false;
     }
 }
