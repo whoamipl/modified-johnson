@@ -23,6 +23,8 @@ public class Main {
         int t1 = 0;
         int t2 = 0;
 
+        idSecondMachineDominated(machines);
+
         for (int i = 0; i < machines.get(0).length; ++i) {
             t1 = machines.get(0)[i] + machines.get(1)[i];
             t2 = machines.get(1)[i] + machines.get(2)[i];
@@ -154,12 +156,11 @@ public class Main {
         }
     }
 
-    private boolean idSecondMachineDominated(List<int[]> machines) {
+    private static void idSecondMachineDominated(List<int[]> machines) {
         for (int i = 0; i < machines.get(0).length; ++i) {
-            if (machines.get(0)[i] < machines.get(1)[i] || machines.get(0)[i] < machines.get(2)[i]) {
+            if (machines.get(0)[i] < machines.get(1)[i] || machines.get(1)[i] > machines.get(2)[i]) {
                 throw new UnsupportedOperationException("Second machine is not dominated");
             }
         }
-        return false;
     }
 }
