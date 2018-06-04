@@ -158,9 +158,10 @@ public class Main {
 
     private static void idSecondMachineDominated(List<int[]> machines) {
         for (int i = 0; i < machines.get(0).length; ++i) {
-            if (machines.get(0)[i] < machines.get(1)[i] || machines.get(1)[i] > machines.get(2)[i]) {
+            if (machines.get(0)[i] <= machines.get(1)[i] || machines.get(1)[i] >= machines.get(2)[i]) {
                 throw new UnsupportedOperationException("Second machine is not dominated");
             }
         }
     }
+
 }
