@@ -68,7 +68,7 @@ public class Main {
 
             placeToStart = machines[0].lastIndexOf(String.valueOf(t.id));
 
-            while (machines[1].length() < placeToStart)
+            while (machines[1].length() <= placeToStart)
                 machines[1] += "-";
 
             for (int i = 0; i < t.getM2(); ++i) {
@@ -77,7 +77,7 @@ public class Main {
 
             placeToStart = machines[1].lastIndexOf(String.valueOf(t.id));
 
-            while (machines[2].length() < placeToStart)
+            while (machines[2].length() <= placeToStart)
                 machines[2] += "-";
 
             for (int i = 0; i < t.getM3(); ++i) {
